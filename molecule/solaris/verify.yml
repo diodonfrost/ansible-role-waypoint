@@ -1,0 +1,22 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Solaris | waypoint should be functionnal
+      command: waypoint --version
+      register: waypoint_result
+
+    - name: Solaris | Verify commands outputs
+      assert:
+        that:
+          - waypoint_result.rc == 0
+        success_msg: "All tests passed"
+      when: lookup('env', 'waypoint_version') == "latest"
+
+    - name: Solaris | Verify commands outputs
+      assert:
+        that:
+          - waypoint_result.rc == 0
+          - lookup('env', 'waypoint_version') in waypoint_result.stdout
+        success_msg: "All tests passed"
+      when: lookup('env', 'waypoint_version') != "latest"
