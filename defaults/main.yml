@@ -1,0 +1,11 @@
+---
+# defaults file for diodonfrost.waypoint
+
+# Define waypoint version to install
+# Possible values: https://releases.hashicorp.com/waypoint/index.json
+# Default: latest
+waypoint_version: latest
+
+# Define where to install waypoint binary
+# Default: use local system path defined in Ansible vars/*.yml
+waypoint_path: "{{ waypoint_default_path }}"

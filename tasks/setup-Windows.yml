@@ -1,0 +1,49 @@
+---
+# tasks file for install waypoint on Windows system
+
+- name: Windows | Find all versions of waypoint
+  win_uri:
+    url: https://releases.hashicorp.com/waypoint/index.json
+    return_content: yes
+  register: waypoint_index
+  when: waypoint_version == 'latest'
+  check_mode: no
+
+- name: Windows | Finds the latest waypoint version when latest var is define
+  set_fact:
+    waypoint_version_to_install: "{{ (waypoint_index.content | from_json).versions | reject('search','-') | list | sort_versions | last }}"
+  when: waypoint_version == 'latest'
+
+- name: Windows | Use the specified waypoint version when latest var is not define
+  set_fact:
+    waypoint_version_to_install: "{{ waypoint_version }}"
+  when: waypoint_version != 'latest'
+
+# This task avoids downloading waypoint every time
+- name: Windows | Check if waypoint is present on Windows with the right version
+  win_command: waypoint -version
+  register: waypoint_installed_version
+  ignore_errors: yes
+  changed_when: false
+  failed_when: false
+
+- name: Windows | Download waypoint
+  win_get_url:
+    url: "{{ waypoint_pkg_url }}"
+    dest: '%TEMP%\waypoint_{{ waypoint_version_to_install }}_windows_amd64.zip'
+  when: waypoint_version_to_install not in ( waypoint_installed_version.stdout_lines | default(['empty']) | first )
+
+- name: Windows | Create waypoint folder
+  win_file:
+    path: "{{ waypoint_path }}"
+    state: directory
+
+- name: Windows | Install waypoint
+  win_unzip:
+    src: '%TEMP%\waypoint_{{ waypoint_version_to_install }}_windows_amd64.zip'
+    dest: "{{ waypoint_path }}"
+  when: waypoint_version_to_install not in ( waypoint_installed_version.stdout_lines | default(['empty']) | first )
+
+- name: Windows | Add waypoint to PATH
+  win_path:
+    elements: "{{ waypoint_path }}"

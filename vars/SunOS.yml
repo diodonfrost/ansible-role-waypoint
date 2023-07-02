@@ -1,0 +1,5 @@
+---
+# vars file for waypoint in SunOS system
+waypoint_pkg_url: "https://releases.hashicorp.com/waypoint/{{ waypoint_version_to_install }}/waypoint_{{ waypoint_version_to_install }}_{{ os_type }}_amd64.zip"
+waypoint_default_path: /usr/sbin
+os_type: solaris
