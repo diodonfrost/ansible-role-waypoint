@@ -14,10 +14,7 @@ galaxy_info:
         - 7
     - name: Fedora
       versions:
-        - 29
-        - 28
-        - 27
-        - 26
+        - all
     - name: Debian
       versions:
         - buster
@@ -32,45 +29,28 @@ galaxy_info:
         - trusty
     - name: Amazon
       versions:
-        - 2017.12
-        - 2016.03
+        - all
     - name: opensuse
       versions:
-        - 15.2
-        - 15.1
-        - 15.0
-        - 42.2
-        - 42.1
+        - all
     - name: ArchLinux
       versions:
-        - any
+        - all
     - name: Alpine
       versions:
-        - any
+        - all
     - name: Gentoo
       versions:
-        - any
+        - all
     - name: ClearLinux
       versions:
-        - any
-    - name: FreeBSD
-      versions:
-        - 11.2
-        - 10.4
-        - 10.3
-    - name: OpenBSD
-      versions:
-        - 6.0
-        - 6.4
+        - all
     - name: MacOSX
       versions:
-        - 10.11
-        - 10.12
-        - 10.13
+        - all
     - name: Windows
       versions:
-        - 2016
-        - 2012R2
+        - all
 
   galaxy_tags:
     - system

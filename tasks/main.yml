@@ -9,7 +9,7 @@
   vars:
     params:
       files:
-        - "{{ ansible_os_family }}.yml"
-        - setup-Linux-Unix.yml
+        - "{{ ansible_system }}.yml"
+        - setup-Linux.yml
       paths:
         - 'tasks'

@@ -1,7 +1,7 @@
 ---
 # tasks file for install waypoint on Linux and Unix system
 
-- name: Linux/Unix | Find all versions of Hashicorp waypoint
+- name: Linux | Find all versions of Hashicorp waypoint
   uri:
     url: https://releases.hashicorp.com/waypoint/index.json
     return_content: yes
@@ -9,12 +9,12 @@
   when: waypoint_version == "latest"
   check_mode: no
 
-- name: Linux/Unix | Finds the latest waypoint version when latest var is define
+- name: Linux | Finds the latest waypoint version when latest var is define
   set_fact:
     waypoint_version_to_install: "{{ (waypoint_index.content | from_json).versions | reject('search','-') | list | sort_versions | last }}"
   when: waypoint_version == 'latest'
 
-- name: Linux/Unix | Use the specified waypoint version when latest var is not define
+- name: Linux | Use the specified waypoint version when latest var is not define
   set_fact:
     waypoint_version_to_install: "{{ waypoint_version }}"
   when: waypoint_version != 'latest'
@@ -23,11 +23,11 @@
 - name: Linux/Unix | Check if waypoint is present with the right version
   command: "{{ waypoint_path }}/waypoint -version"
   register: waypoint_installed_version
-  ignore_errors: yes
+  ignore_errors: true
   changed_when: false
   failed_when: false
 
-- name: Linux/Unix | Install waypoint
+- name: Linux | Install waypoint
   unarchive:
     src: "{{ waypoint_pkg_url }}"
     dest: "{{ waypoint_path }}"
