@@ -3,18 +3,18 @@
   hosts: all
   tasks:
     - name: Linux | waypoint should be functionnal
-      command: waypoint --version
+      ansible.builtin.command: waypoint --version
       register: waypoint_result
 
     - name: Linux | Verify commands outputs
-      assert:
+      ansible.builtin.assert:
         that:
           - waypoint_result.rc == 0
         success_msg: "All tests passed"
       when: lookup('env', 'waypoint_version') == "latest"
 
     - name: Linux | Verify commands outputs
-      assert:
+      ansible.builtin.assert:
         that:
           - waypoint_result.rc == 0
           - lookup('env', 'waypoint_version') in waypoint_result.stdout

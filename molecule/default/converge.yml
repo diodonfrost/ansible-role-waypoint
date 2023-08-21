@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: "Include ansible-role-waypoint"
-      include_role:
+      ansible.builtin.include_role:
         name: "ansible-role-waypoint"
       vars:
         waypoint_version: "{{ lookup('env', 'waypoint_version') | default('latest', true) }}"
