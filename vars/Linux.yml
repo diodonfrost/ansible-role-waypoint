@@ -1,5 +1,4 @@
 ---
 # vars file for waypoint in Linux system
-waypoint_pkg_url: "https://releases.hashicorp.com/waypoint/{{ waypoint_version_to_install }}/waypoint_{{ waypoint_version_to_install }}_{{ os_type }}_{{ base_arch[ansible_architecture] | default('amd64') }}.zip"
-waypoint_default_path: /usr/local/bin/
-os_type: linux
+__waypoint_pkg_url: "https://releases.hashicorp.com/waypoint/{{ __waypoint_version }}/waypoint_{{ __waypoint_version }}_linux_{{ base_arch[ansible_architecture] | default('amd64') }}.zip"
+__waypoint_path: /usr/local/bin/

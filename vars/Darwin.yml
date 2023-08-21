@@ -1,5 +1,4 @@
 ---
 # vars file for waypoint in Mac osx system
-waypoint_pkg_url: "https://releases.hashicorp.com/waypoint/{{ waypoint_version_to_install }}/waypoint_{{ waypoint_version_to_install }}_{{ os_type }}_amd64.zip"
-waypoint_default_path: /usr/local/bin/
-os_type: darwin
+__waypoint_pkg_url: "https://releases.hashicorp.com/waypoint/{{ __waypoint_version }}/waypoint_{{ __waypoint_version }}_darwin_amd64.zip"
+__waypoint_path: /usr/local/bin/

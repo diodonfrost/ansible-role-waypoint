@@ -15,16 +15,20 @@ This role has multiple variables. The defaults for all these variables are the f
 
 ```yaml
 ---
-# defaults file for ansible-role-waypoint
+# defaults file for diodonfrost.waypoint
 
 # Define waypoint version to install
 # Possible values: https://releases.hashicorp.com/waypoint/index.json
 # Default: latest
 waypoint_version: latest
 
+# Define url where to download waypoint package
+# Default: use local system path defined in Ansible vars/*.yml
+waypoint_pkg_url: "{{ __waypoint_pkg_url }}"
+
 # Define where to install waypoint binary
 # Default: use local system path defined in Ansible vars/*.yml
-waypoint_path: "{{ waypoint_default_path }}"
+waypoint_path: "{{ __waypoint_path }}"
 ```
 
 ## Dependencies

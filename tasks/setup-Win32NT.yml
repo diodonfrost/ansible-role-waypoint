@@ -5,24 +5,24 @@
   ansible.windows.win_uri:
     url: https://releases.hashicorp.com/waypoint/index.json
     return_content: true
-  register: waypoint_index
+  register: __waypoint_index
   when: waypoint_version == 'latest'
   check_mode: false
 
 - name: Windows | Finds the latest waypoint version when latest var is define
   ansible.builtin.set_fact:
-    waypoint_version_to_install: "{{ (waypoint_index.content | from_json).versions | reject('search', '-') | list | sort_versions | last }}"
+    __waypoint_version: "{{ (__waypoint_index.content | from_json).versions | reject('search', '-') | list | sort_versions | last }}"
   when: waypoint_version == 'latest'
 
 - name: Windows | Use the specified waypoint version when latest var is not define
   ansible.builtin.set_fact:
-    waypoint_version_to_install: "{{ waypoint_version }}"
+    __waypoint_version: "{{ waypoint_version }}"
   when: waypoint_version != 'latest'
 
 # This task avoids downloading waypoint every time
 - name: Windows | Check if waypoint is present on Windows with the right version
   ansible.windows.win_command: waypoint -version
-  register: waypoint_installed_version
+  register: __waypoint_installed_version
   ignore_errors: true
   changed_when: false
   failed_when: false
@@ -30,8 +30,8 @@
 - name: Windows | Download waypoint
   ansible.windows.win_get_url:
     url: "{{ waypoint_pkg_url }}"
-    dest: '%TEMP%\waypoint_{{ waypoint_version_to_install }}_windows_amd64.zip'
-  when: waypoint_version_to_install not in ( waypoint_installed_version.stdout_lines | default(['empty']) | first )
+    dest: '%TEMP%\waypoint_{{ __waypoint_version }}_windows_amd64.zip'
+  when: __waypoint_version not in ( __waypoint_installed_version.stdout_lines | default(['empty']) | first )
 
 - name: Windows | Create waypoint folder
   ansible.windows.win_file:
@@ -40,9 +40,9 @@
 
 - name: Windows | Install waypoint
   community.windows.win_unzip:
-    src: '%TEMP%\waypoint_{{ waypoint_version_to_install }}_windows_amd64.zip'
+    src: '%TEMP%\waypoint_{{ __waypoint_version }}_windows_amd64.zip'
     dest: "{{ waypoint_path }}"
-  when: waypoint_version_to_install not in ( waypoint_installed_version.stdout_lines | default(['empty']) | first )
+  when: __waypoint_version not in ( __waypoint_installed_version.stdout_lines | default(['empty']) | first )
 
 - name: Windows | Add waypoint to PATH
   ansible.windows.win_path:
