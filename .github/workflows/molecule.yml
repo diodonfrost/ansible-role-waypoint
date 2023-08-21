@@ -11,15 +11,13 @@ jobs:
     name: ${{ matrix.image }} waypoint ${{ matrix.waypoint_version }}
     runs-on: ubuntu-22.04
     env:
-      docker_namepsace: ghcr.io/diodonfrost/docker-ansible
+      docker_namepsace: ghcr.io/diodonfrost
     strategy:
       fail-fast: false
       matrix:
         image:
           - almalinux:8
           - rockylinux:8
-          - centos:7
-          - fedora:39
           - fedora:38
           - fedora:37
           - fedora:36
@@ -31,7 +29,6 @@ jobs:
           - oraclelinux:8
           - amazonlinux:2
           - opensuse:leap
-          - opensuse:tumbleweed
           - archlinux:latest
           - alpine:latest
           - gentoo:latest
@@ -43,10 +40,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Python 3.9
+      - name: Set up Python 3.10
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: "3.10"
 
       - name: Install Molecule
         run: |
