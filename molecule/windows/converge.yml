@@ -1,10 +1,5 @@
 ---
 - name: Converge
   hosts: all
-  become: true
-  tasks:
-    - name: "Include ansible-role-waypoint"
-      ansible.builtin.include_role:
-        name: "ansible-role-waypoint"
-      vars:
-        waypoint_version: "{{ lookup('env', 'waypoint_version') | default('latest', true) }}"
+  roles:
+    - role: diodonfrost.waypoint
