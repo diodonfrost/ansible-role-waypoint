@@ -3,3 +3,4 @@
   hosts: all
   roles:
     - role: diodonfrost.waypoint
+      waypoint_version: "{{ lookup('env', 'waypoint_version') | default('latest', true) }}"
