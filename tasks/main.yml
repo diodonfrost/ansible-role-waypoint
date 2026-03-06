@@ -2,14 +2,14 @@
 # tasks file for ansible-role-waypoint
 
 - name: Include OS specific variables.
-  ansible.builtin.include_vars: "{{ ansible_system }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_facts['system'] }}.yml"
 
 - name: Install Hashicorp waypoint
   ansible.builtin.include_tasks: "{{ lookup('ansible.builtin.first_found', params) }}"
   vars:
     params:
       files:
-        - "{{ ansible_system }}.yml"
+        - "{{ ansible_facts['system'] }}.yml"
         - setup-Linux.yml
       paths:
         - 'tasks'
