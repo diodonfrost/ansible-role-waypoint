@@ -1,4 +1,4 @@
 ---
 # vars file for waypoint in Windows system
-__waypoint_pkg_url: "https://releases.hashicorp.com/waypoint/{{ __waypoint_version }}/waypoint_{{ __waypoint_version }}_windows_{{ base_arch[ansible_facts['architecture']] | default('amd64') }}.zip"
-__waypoint_path: C:\HashiCorp\waypoint\bin\
+_waypoint_pkg_url: "https://releases.hashicorp.com/waypoint/{{ _waypoint_version }}/waypoint_{{ _waypoint_version }}_windows_{{ _base_arch[ansible_facts['architecture']] | default('amd64') }}.zip"
+_waypoint_path: C:\HashiCorp\waypoint\bin\

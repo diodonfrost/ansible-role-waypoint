@@ -8,8 +8,8 @@ waypoint_version: latest
 
 # Define url where to download waypoint package
 # Default: use local system path defined in Ansible vars/*.yml
-waypoint_pkg_url: "{{ __waypoint_pkg_url }}"
+waypoint_pkg_url: "{{ _waypoint_pkg_url }}"
 
 # Define where to install waypoint binary
 # Default: use local system path defined in Ansible vars/*.yml
-waypoint_path: "{{ __waypoint_path }}"
+waypoint_path: "{{ _waypoint_path }}"
