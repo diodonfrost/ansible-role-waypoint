@@ -29,6 +29,14 @@ waypoint_pkg_url: "{{ _waypoint_pkg_url }}"
 # Define where to install waypoint binary
 # Default: use local system path defined in Ansible vars/*.yml
 waypoint_path: "{{ _waypoint_path }}"
+
+# Enable SHA256 checksum verification of the downloaded archive
+# Default: true
+waypoint_checksum_verify: true
+
+# Define the URL of the SHA256SUMS file used to verify the downloaded archive
+# Default: use the URL defined in Ansible vars/main.yml
+waypoint_checksum_url: "{{ _waypoint_checksum_url }}"
 ```
 
 ## Dependencies

@@ -27,9 +27,17 @@
   changed_when: false
   failed_when: false
 
+- name: Linux | Download waypoint archive
+  ansible.builtin.get_url:
+    url: "{{ waypoint_pkg_url }}"
+    dest: "/tmp/waypoint_{{ _waypoint_version }}_linux_{{ _base_arch[ansible_facts['architecture']] | default('amd64') }}.zip"
+    checksum: "{{ ('sha256:' + waypoint_checksum_url) if waypoint_checksum_verify else omit }}"
+    mode: '0644'
+  when: _waypoint_version not in ( _waypoint_installed_version.stdout_lines | default(['empty'], true) | first )
+
 - name: Linux | Install waypoint
   ansible.builtin.unarchive:
-    src: "{{ waypoint_pkg_url }}"
+    src: "/tmp/waypoint_{{ _waypoint_version }}_linux_{{ _base_arch[ansible_facts['architecture']] | default('amd64') }}.zip"
     dest: "{{ waypoint_path }}"
     remote_src: true
   when: _waypoint_version not in ( _waypoint_installed_version.stdout_lines | default(['empty'], true) | first )

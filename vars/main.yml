@@ -7,3 +7,5 @@ _base_arch:
   aarch64: 'arm64'
   armv7l: 'arm'
   armv6l: 'arm'
+
+_waypoint_checksum_url: "https://releases.hashicorp.com/waypoint/{{ _waypoint_version }}/waypoint_{{ _waypoint_version }}_SHA256SUMS"
