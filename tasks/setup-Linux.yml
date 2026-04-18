@@ -33,6 +33,7 @@
     dest: "/tmp/waypoint_{{ _waypoint_version }}_linux_{{ _base_arch[ansible_facts['architecture']] | default('amd64') }}.zip"
     checksum: "{{ ('sha256:' + waypoint_checksum_url) if waypoint_checksum_verify else omit }}"
     mode: '0644'
+  check_mode: false
   when: _waypoint_version not in ( _waypoint_installed_version.stdout_lines | default(['empty'], true) | first )
 
 - name: Linux | Install waypoint
